@@ -11,10 +11,11 @@ export class NotePageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-   this.noteText=localStorage.getItem('note')
+   this.noteText=sessionStorage.getItem('note')
+  
   }
   noteChange(e){
-    localStorage.setItem('note',e)
+    sessionStorage.setItem('note',e)
     
   }
 
