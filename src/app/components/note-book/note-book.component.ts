@@ -7,40 +7,45 @@ import { Page } from 'src/app/interfaces/page';
   styleUrls: ['./note-book.component.scss']
 })
 export class NoteBookComponent implements OnInit {
-  pages: Array<Page>
+  pages: Array<Page>;
+  page: Page;
   pageNumber: number;
   constructor() {
-    this.pageNumber = 1;
-    this.pages = [{ value: '', pageId: this.pageNumber }]
+    this.page = { value: '', pageId: this.pageNumber }
+    this.pages = sessionStorage.getItem('pages') ? JSON.parse(sessionStorage.getItem('pages')) : [this.page];
+    this.pageNumber = this.pages.length;
   }
 
   ngOnInit(): void {
-
-    this.pages = sessionStorage.getItem('pages') ? JSON.parse(sessionStorage.getItem('pages')) : this.pages;
-
     console.log(this.pages, 'storage');
+  }
 
+  storePages() {
+    sessionStorage.setItem('pages', JSON.stringify(this.pages))
+  }
+  clearPages() {
+    sessionStorage.removeItem('pages');
+    this.pages = [this.page];
   }
   addPage() {
-
-    {
-      this.pages.length < 3 &&
+    if (this.pages.length >= 1 && this.pages.length < 3) {
       this.pageNumber++;
       this.pages.push({ value: '', pageId: this.pageNumber });
-     
     }
-    console.log(this.pages,'add');
-    
+    this.storePages();
   }
-  
+
   removePage() {
-    { 
-      this.pages.length > 1 &&
+    if (this.pages.length > 1 && this.pages.length < 4) {
       this.pageNumber--;
       this.pages.pop();
-      console.log(this.pages,'');
+      console.log(this.pages, '');
+    } else if(this.pages.length == 1){
+      this.clearPages();
     }
+    this.storePages();
   }
+
   take(e) {
     console.log(e, 'eeee');
     this.pages.forEach(page => {
@@ -48,8 +53,7 @@ export class NoteBookComponent implements OnInit {
         page.value = e.value;
       }
     });
-    sessionStorage.setItem('pages', JSON.stringify(this.pages))
-
+    this.storePages();
   }
 
 }
