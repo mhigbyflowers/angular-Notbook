@@ -1,6 +1,8 @@
 <button (click)="addPage()">add page</button>
 <button (click)="removePage()">remove page</button>
-
-<ng-container *ngFor="let page of pages">
-<app-note-page (update)="take($event)" [page]="page"></app-note-page>
+<ng-container *ngFor="let page of pages; trackBy:getPageId">
+    <app-note-page 
+        (update)="take($event)"
+        [page]="page">
+    </app-note-page>
 </ng-container>

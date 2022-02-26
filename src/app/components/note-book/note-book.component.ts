@@ -11,22 +11,27 @@ export class NoteBookComponent implements OnInit {
   page: Page;
   pageNumber: number;
   constructor() {
-    this.page = { value: '', pageId: this.pageNumber }
+    this.page = { value: '', pageId: 1 }
     this.pages = sessionStorage.getItem('pages') ? JSON.parse(sessionStorage.getItem('pages')) : [this.page];
-    this.pageNumber = this.pages.length;
   }
-
+  
   ngOnInit(): void {
-    console.log(this.pages, 'storage');
+    this.pageNumber = this.pages.length;
   }
 
   storePages() {
     sessionStorage.setItem('pages', JSON.stringify(this.pages))
   }
+
   clearPages() {
     sessionStorage.removeItem('pages');
     this.pages = [this.page];
   }
+
+  getPageId(index,page) {
+    return page.id
+  }
+
   addPage() {
     if (this.pages.length >= 1 && this.pages.length < 3) {
       this.pageNumber++;
@@ -34,12 +39,11 @@ export class NoteBookComponent implements OnInit {
     }
     this.storePages();
   }
-
+  
   removePage() {
     if (this.pages.length > 1 && this.pages.length < 4) {
       this.pageNumber--;
       this.pages.pop();
-      console.log(this.pages, '');
     } else if(this.pages.length == 1){
       this.clearPages();
     }
