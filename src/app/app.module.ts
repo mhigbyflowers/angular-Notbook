@@ -4,11 +4,13 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NotePageComponent } from './components/note-page/note-page.component';
+import { NoteBookComponent } from './components/note-book/note-book.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NotePageComponent
+    NotePageComponent,
+    NoteBookComponent
   ],
   imports: [
     BrowserModule,

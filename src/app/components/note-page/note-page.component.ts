@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-note-page',
@@ -8,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class NotePageComponent implements OnInit {
 
   noteText = ''
-  constructor() { }
+  constructor(route:Router) { 
+
+    
+  }
 
   ngOnInit(): void {
    this.noteText=sessionStorage.getItem('note')
@@ -16,7 +20,7 @@ export class NotePageComponent implements OnInit {
   }
   noteChange(e){
     sessionStorage.setItem('note',e)
-    
   }
+
 
 }
