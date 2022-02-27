@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Page } from 'src/app/interfaces/page';
 import { TextColors } from 'src/app/interfaces/textColors';
@@ -14,31 +14,23 @@ export class NotePageComponent implements OnChanges {
   @Input() page: Page;
   @Input() color: TextColors;
   @Output() update: EventEmitter<Page> = new EventEmitter();
-  @Output() endOfPage: EventEmitter<any> = new EventEmitter();
-  noteText = '';
+  noteText: string;
 
   constructor(route: Router) {
-  }
+    this.noteText='';
+   }
 
   ngOnChanges(): void {
     if (this.page) {
       this.noteText = this.page.value;
     }
-    sessionStorage.setItem('color',JSON.stringify(this.color));
-    console.log(sessionStorage.getItem('color'),'sup');
-    
+    sessionStorage.setItem('color', JSON.stringify(this.color));
   }
- 
+
   noteChange(note) {
-    const rowsOfText = note.value.split(/\r\n|\r|\n/).length
-    const maxRows = Math.floor(note.offsetHeight / 24) - 6;
-    if (maxRows <= rowsOfText) {
-      this.endOfPage.emit();
-    }
     this.update.emit({
       pageId: this.page.pageId,
       value: note.value,
-      focus: true
     })
   }
 

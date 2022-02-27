@@ -15,7 +15,8 @@ export class NoteBookComponent implements OnInit {
   textColor: string;
   colors: any;
   constructor(public elm: ElementRef) {
-    this.page = { value: '', pageId: 1, focus: true }
+    this.page = { value: '', pageId: 1 }
+    //get values from sessionStorage
     this.pages = sessionStorage.getItem('pages') ? JSON.parse(sessionStorage.getItem('pages')) : [this.page];
     this.pageColor = sessionStorage.getItem('color') ? JSON.parse(sessionStorage.getItem('color')).pageColor : 'FFFFFF55';
     this.textColor = sessionStorage.getItem('color') ? JSON.parse(sessionStorage.getItem('color')).textColor : 'darkgreen';
@@ -38,18 +39,17 @@ export class NoteBookComponent implements OnInit {
     return page.id
   }
 
-  addPage() {
+  addPage() { // gate the add page button
     if (this.pages.length >= 1 && this.pages.length < 3) {
-      this.pages.forEach(page => page.focus = false);
       this.pageNumber++;
-      this.pages.push({ value: '', pageId: this.pageNumber, focus: true });
+      this.pages.push({ value: '', pageId: this.pageNumber });
     }
     this.scrollAndFocus();
     this.storePages();
   }
 
   removePage() {
-    if (this.pages.length > 1 && this.pages.length < 4) {
+    if (this.pages.length > 1 && this.pages.length < 4) { // gate the remove button
       this.pageNumber--;
       this.pages.pop();
     } else if (this.pages.length == 1) {
@@ -59,8 +59,7 @@ export class NoteBookComponent implements OnInit {
     this.storePages();
   }
 
-  take(e) {
-    console.log(e, 'eeee');
+  handleTextChange(e) {
     this.pages.forEach(page => {
       if (page.pageId === e.pageId) {
         page.value = e.value;
@@ -80,13 +79,14 @@ export class NoteBookComponent implements OnInit {
     }, 100);
   }
 
-  calculateWidth(pLayout) {
+  calculateWidth(pLayout) { // calculating width of pages based on pLayout's width so boxes fit.
     return { width: 'calc(' + Math.floor(pLayout.offsetWidth / this.pageNumber) + 'px)' }
   }
 
-  calculateContainerWidth() {
+  calculateContainerWidth() { // useing pageNumber to determain how big the container should be
     return { width: 'calc(' + this.pageNumber + '00% - 5%)' }
   }
+
   pageColorStyles() {
     const style = { background: '', color: '' };
     style.background = this.pageColor;

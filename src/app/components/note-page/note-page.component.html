@@ -1,7 +1,7 @@
 <div class="top-bar">Page {{page.pageId}}</div>
-
 <div [ngStyle]="color.pageColor && {background:color.pageColor}" class="text-container">
-    <textarea [ngStyle]="color.textColor && {color:color.textColor}" #note id="text-box{{page.pageId}}" autofocus rows="auto" (keyup)="noteChange(note)"
+    <textarea title="Type Here" [ngStyle]="color.textColor && {color:color.textColor}" #note
+        id="text-box{{page.pageId}}" autofocus rows="auto" (keyup)="noteChange(note)"
         class="text-box">{{noteText}}</textarea>
     <div class="page-number">
     </div>
