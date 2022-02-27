@@ -2,7 +2,7 @@
     <span>Toolbar</span>
     <div class="tools-layout">
         <div class="btn-container">
-            <button class="btn" [disabled]="pageNumber > 2" [ngStyle]="pageNumber > 2 && {opacity:'.3'}"
+            <button class="btn" [disabled]="pageNumber > 4" [ngStyle]="pageNumber > 4 && {opacity:'.3'}"
                 title="Add Page" (click)="addPage()"><img src="/assets/icons/add-file.png" /></button>
             <button class="btn" [disabled]="pageNumber == 1" [ngStyle]="pageNumber == 1 && {opacity:'.3'}"
                 title="Remove Page" (click)="removePage()"><img src="/assets/icons/delete-file.png" /></button>

@@ -40,7 +40,7 @@ export class NoteBookComponent implements OnInit {
   }
 
   addPage() { // gate the add page button
-    if (this.pages.length >= 1 && this.pages.length < 3) {
+    if (this.pages.length >= 1 && this.pages.length < 5) {
       this.pageNumber++;
       this.pages.push({ value: '', pageId: this.pageNumber });
     }
@@ -49,7 +49,7 @@ export class NoteBookComponent implements OnInit {
   }
 
   removePage() {
-    if (this.pages.length > 1 && this.pages.length < 4) { // gate the remove button
+    if (this.pages.length > 1 && this.pages.length < 6) { // gate the remove button
       this.pageNumber--;
       this.pages.pop();
     } else if (this.pages.length === 1) {
@@ -84,7 +84,7 @@ export class NoteBookComponent implements OnInit {
   }
 
   calculateContainerWidth() { // useing pageNumber to determain how big the container should be
-    return { width: 'calc(' + this.pageNumber + '00% - 5%)' };
+    return { width: 'calc(' + this.pageNumber + '00%)' };
   }
 
   pageColorStyles() {
