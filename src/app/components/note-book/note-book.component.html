@@ -1,12 +1,25 @@
-<div class="btn-container">
-    <button class="btn" (click)="addPage()">+</button>
-    <button class="btn" (click)="removePage()">-</button>
+<div class="tools">
+    <span>Toolbar</span>
+    <div class="tools-layout">
+        <div class="btn-container">
+            <button class="btn" [disabled]="pageNumber > 2" [ngStyle]="pageNumber > 2 && {opacity:'.3'}" title="Add Page" (click)="addPage()"><img src="/assets/icons/add-file.png"/></button>
+            <button class="btn" [disabled]="pageNumber == 1" [ngStyle]="pageNumber == 1 && {opacity:'.3'}" title="Remove Page" (click)="removePage()"><img src="/assets/icons/delete-file.png"/></button>
+        </div>
+        <form class="color-selection" action="getColors()">
+            <div [ngStyle]="textColor && {color: textColor}" ngx-colors-trigger class="text-color "
+                [(ngModel)]="textColor" name="textColor">A
+            </div>
+            <div [ngStyle]="pageColorStyles() " ngx-colors-trigger class="page-color "
+                [(ngModel)]="pageColor" name="pageColor">A
+            </div>
+        </form>
+    </div>
 </div>
 <div class="scroll-container">
     <div #pLayout class="pages-layout" [ngStyle]="calculateContainerWidth()">
         <ng-container *ngFor="let page of pages; trackBy:getPageId">
-            <app-note-page id="ref{{page.pageId}}" #notePage [ngStyle]="calculateWidth(pLayout)"
-                 class="page" (update)="take($event)" [page]="page">
+            <app-note-page id="ref{{page.pageId}}" #notePage [ngStyle]="calculateWidth(pLayout)" class="page"
+                [color]='{textColor:textColor,pageColor:pageColor}' (update)="take($event)" [page]="page">
             </app-note-page>
         </ng-container>
     </div>

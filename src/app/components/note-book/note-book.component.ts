@@ -11,10 +11,14 @@ export class NoteBookComponent implements OnInit {
   pages: Array<Page>;
   page: Page;
   pageNumber: number;
+  pageColor: string;
+  textColor: string;
+  colors: any;
   constructor(public elm: ElementRef) {
-
     this.page = { value: '', pageId: 1, focus: true }
     this.pages = sessionStorage.getItem('pages') ? JSON.parse(sessionStorage.getItem('pages')) : [this.page];
+    this.pageColor = sessionStorage.getItem('color') ? JSON.parse(sessionStorage.getItem('color')).pageColor : 'FFFFFF55';
+    this.textColor = sessionStorage.getItem('color') ? JSON.parse(sessionStorage.getItem('color')).textColor : 'darkgreen';
   }
 
   ngOnInit(): void {
@@ -22,7 +26,6 @@ export class NoteBookComponent implements OnInit {
   }
 
   storePages() {
-    console.log(this.pages, 'pages');
     sessionStorage.setItem('pages', JSON.stringify(this.pages))
   }
 
@@ -40,11 +43,8 @@ export class NoteBookComponent implements OnInit {
       this.pages.forEach(page => page.focus = false);
       this.pageNumber++;
       this.pages.push({ value: '', pageId: this.pageNumber, focus: true });
-
     }
     this.scrollAndFocus();
-
-
     this.storePages();
   }
 
@@ -69,25 +69,28 @@ export class NoteBookComponent implements OnInit {
     this.storePages();
   }
 
+  // focus on a new page if newPage or focus on the privious page if removePage
   scrollAndFocus() {
     setTimeout(() => {
       const scrollToMe = document.getElementById('ref' + this.pageNumber);
-      console.log(scrollToMe);
-      
       const focusMe = this.elm.nativeElement.querySelector('#text-box' + this.pageNumber);
       scrollToMe.scrollIntoView(true);
       window.scrollTo(0, 0);
       focusMe.focus();
     }, 100);
-
   }
 
   calculateWidth(pLayout) {
     return { width: 'calc(' + Math.floor(pLayout.offsetWidth / this.pageNumber) + 'px)' }
   }
-  calculateContainerWidth() {
 
+  calculateContainerWidth() {
     return { width: 'calc(' + this.pageNumber + '00% - 5%)' }
   }
-
+  pageColorStyles() {
+    const style = { background: '', color: '' };
+    style.background = this.pageColor;
+    style.color = this.textColor;
+    return style;
+  }
 }
