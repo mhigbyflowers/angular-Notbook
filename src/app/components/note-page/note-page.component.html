@@ -1,3 +1,5 @@
-<div class="text-container">
-    <textarea #note (keyup)="noteChange(note.value)" class="text-box">{{noteText}}</textarea>
-</div>
+<div class="top-bar">Page {{page.pageId}}</div>
+<div  class="text-container" >
+    <textarea  #note id="text-box{{page.pageId}}" autofocus rows="auto"  (keyup)="noteChange(note)" class="text-box">{{noteText}}</textarea>
+    <div class="page-number">
+    </div></div>

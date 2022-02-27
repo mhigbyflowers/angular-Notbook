@@ -1,8 +1,13 @@
-<button (click)="addPage()">add page</button>
-<button (click)="removePage()">remove page</button>
-<ng-container *ngFor="let page of pages; trackBy:getPageId">
-    <app-note-page 
-        (update)="take($event)"
-        [page]="page">
-    </app-note-page>
-</ng-container>
+<div class="btn-container">
+    <button class="btn" (click)="addPage()">+</button>
+    <button class="btn" (click)="removePage()">-</button>
+</div>
+<div class="scroll-container">
+    <div #pLayout class="pages-layout" [ngStyle]="calculateContainerWidth()">
+        <ng-container *ngFor="let page of pages; trackBy:getPageId">
+            <app-note-page id="ref{{page.pageId}}" #notePage [ngStyle]="calculateWidth(pLayout)"
+                 class="page" (update)="take($event)" [page]="page">
+            </app-note-page>
+        </ng-container>
+    </div>
+</div>

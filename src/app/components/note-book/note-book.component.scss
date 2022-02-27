@@ -1,0 +1,41 @@
+:host {
+    padding: 1rem;
+    height: 100%;
+    display: block;
+}
+.btn-container {
+    padding-bottom: .5rem;
+    display: flex;
+    .btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 4px;
+        border-color: rgb(182, 180, 180);
+    }
+}
+.scroll-container {
+    width: 100%;
+    height: 85%;
+    overflow-x: auto;
+    .pages-layout {
+        overflow: hidden;
+        height: 100%;
+        max-width: 153rem;
+        .page {
+            max-width: 50rem;
+            display: inline-block;
+            background-color: #eee;
+            height: 100%;
+            border-radius: 1rem;
+            margin-left: 1rem;
+            overflow: hidden;
+            &:first-of-type {
+                margin-left: 0;
+            }
+        }
+    }
+}
