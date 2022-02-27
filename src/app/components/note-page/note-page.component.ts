@@ -10,15 +10,15 @@ import { TextColors } from 'src/app/interfaces/textColors';
 })
 
 export class NotePageComponent implements OnChanges {
-  @ViewChild('note') textArea: ElementRef
+  @ViewChild('note') textArea: ElementRef;
   @Input() page: Page;
   @Input() color: TextColors;
   @Output() update: EventEmitter<Page> = new EventEmitter();
   noteText: string;
 
   constructor(route: Router) {
-    this.noteText='';
-   }
+    this.noteText = '';
+  }
 
   ngOnChanges(): void {
     if (this.page) {
@@ -31,7 +31,7 @@ export class NotePageComponent implements OnChanges {
     this.update.emit({
       pageId: this.page.pageId,
       value: note.value,
-    })
+    });
   }
 
 

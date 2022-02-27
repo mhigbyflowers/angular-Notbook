@@ -7,7 +7,7 @@ import { Page } from 'src/app/interfaces/page';
   styleUrls: ['./note-book.component.scss']
 })
 export class NoteBookComponent implements OnInit {
-  @ViewChildren('notePage') notePage: ElementRef
+  @ViewChildren('notePage') notePage: ElementRef;
   pages: Array<Page>;
   page: Page;
   pageNumber: number;
@@ -15,8 +15,8 @@ export class NoteBookComponent implements OnInit {
   textColor: string;
   colors: any;
   constructor(public elm: ElementRef) {
-    this.page = { value: '', pageId: 1 }
-    //get values from sessionStorage
+    this.page = { value: '', pageId: 1 };
+    // get values from sessionStorage
     this.pages = sessionStorage.getItem('pages') ? JSON.parse(sessionStorage.getItem('pages')) : [this.page];
     this.pageColor = sessionStorage.getItem('color') ? JSON.parse(sessionStorage.getItem('color')).pageColor : 'FFFFFF55';
     this.textColor = sessionStorage.getItem('color') ? JSON.parse(sessionStorage.getItem('color')).textColor : 'darkgreen';
@@ -27,7 +27,7 @@ export class NoteBookComponent implements OnInit {
   }
 
   storePages() {
-    sessionStorage.setItem('pages', JSON.stringify(this.pages))
+    sessionStorage.setItem('pages', JSON.stringify(this.pages));
   }
 
   clearPages() {
@@ -36,7 +36,7 @@ export class NoteBookComponent implements OnInit {
   }
 
   getPageId(index, page) {
-    return page.id
+    return page.id;
   }
 
   addPage() { // gate the add page button
@@ -52,7 +52,7 @@ export class NoteBookComponent implements OnInit {
     if (this.pages.length > 1 && this.pages.length < 4) { // gate the remove button
       this.pageNumber--;
       this.pages.pop();
-    } else if (this.pages.length == 1) {
+    } else if (this.pages.length === 1) {
       this.clearPages();
     }
     this.scrollAndFocus();
@@ -80,11 +80,11 @@ export class NoteBookComponent implements OnInit {
   }
 
   calculateWidth(pLayout) { // calculating width of pages based on pLayout's width so boxes fit.
-    return { width: 'calc(' + Math.floor(pLayout.offsetWidth / this.pageNumber) + 'px)' }
+    return { width: 'calc(' + Math.floor(pLayout.offsetWidth / this.pageNumber) + 'px)' };
   }
 
   calculateContainerWidth() { // useing pageNumber to determain how big the container should be
-    return { width: 'calc(' + this.pageNumber + '00% - 5%)' }
+    return { width: 'calc(' + this.pageNumber + '00% - 5%)' };
   }
 
   pageColorStyles() {

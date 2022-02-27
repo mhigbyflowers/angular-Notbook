@@ -1,4 +1,4 @@
 export interface TextColors {
-    pageColor:string;
-    textColor:string;
+    pageColor: string;
+    textColor: string;
 }
